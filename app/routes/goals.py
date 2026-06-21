@@ -138,7 +138,7 @@ async def create_goal_handler(request: Request):
         id=ID.unique(),
         user_id=user_id,
         name=str(form.get("name", "")),
-        target_amount=float(form.get("target_amount", 0)),
+        target_amount=float(form.get("target_amount") or 0),
         unit=str(form.get("unit", "")),
         deadline=str(form.get("deadline", "")),
         achieved_so_far=0.0,
