@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Fraunces", Georgia, serif;
+
+  /* ── ink (dark surfaces) ─────────────────────────────── */
+  --color-ink-950: #0B0D10;
+  --color-ink-900: #14171C;
+  --color-ink-800: #1C2026;
+  --color-ink-700: #2A2F37;
+  --color-ink-600: #3A4049;
+
+  /* ── paper (warm text) ───────────────────────────────── */
+  --color-paper-50: #F2F0EA;
+  --color-paper-100: #E5E3DC;
+  --color-paper-200: #CDC9BF;
+  --color-paper-300: #A8A49B;
+  --color-paper-400: #8B8A85;
+  --color-paper-500: #6B6A66;
+
+  /* ── signal (gold accent — commitment, milestones) ──── */
+  --color-signal-300: #F0D68A;
+  --color-signal-400: #E0C36B;
+  --color-signal-500: #C9A646;
+  --color-signal-600: #B8952F;
+
+  /* ── pulse (progress green — motion, momentum) ──────── */
+  --color-pulse-300: #6BC5A0;
+  --color-pulse-400: #4FB88C;
+  --color-pulse-500: #3FA37D;
+  --color-pulse-600: #358C6B;
+
+  /* ── mint (active status) ───────────────────────────── */
+  --color-mint-300: #7EDBB0;
+  --color-mint-400: #5FCB94;
+  --color-mint-500: #4AB87E;
+
+  /* ── amber (paused status) ──────────────────────────── */
+  --color-amber-300: #F0C570;
+  --color-amber-400: #E5A94B;
+  --color-amber-500: #D49A34;
+
+  /* ── rose (danger / abandoned) ──────────────────────── */
+  --color-rose-300: #E87C8B;
+  --color-rose-400: #D86273;
+  --color-rose-500: #D1495B;
+  --color-rose-600: #BA3A4C;
+
+  /* ── slate (completed / info) ───────────────────────── */
+  --color-slate-300: #A3B5C6;
+  --color-slate-400: #7C93A8;
+  --color-slate-500: #5F7A91;
+
+  /* ── status aliases (one job each) ──────────────────── */
+  --color-success: #5FCB94;
+  --color-warning: #E5A94B;
+  --color-danger: #D1495B;
+  --color-info: #7C93A8;
+}
+
+/* ── gradient: signal gold → pulse green ─────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #E0C36B, #3FA37D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── hero glow: gold-tinted ─────────────────────────── */
+.hero-glow {
+  box-shadow: 0 0 80px -20px rgba(201, 166, 70, 0.25);
+}
+
+/* ── details/summary marker ─────────────────────────── */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 0.5em;
+  transition: transform 0.2s;
+  font-size: 0.75em;
+  color: #C9A646;
+}
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+/* ── HTMX loading states ────────────────────────────── */
+.htmx-request {
+  opacity: 0.6;
+  transition: opacity 150ms ease-in;
+}
+.htmx-settling {
+  opacity: 0.6;
+  transition: opacity 150ms ease-in;
+}
+.htmx-settling .htmx-indicator,
+.htmx-request .htmx-indicator {
+  display: inline;
+}
+.htmx-request.htmx-settling {
+  opacity: 1;
+}
+
+/* ── milestone stamp animation ──────────────────────── */
+@keyframes stamp {
+  0% { transform: scale(1.2) rotate(-3deg); opacity: 0.5; }
+  60% { transform: scale(0.98) rotate(-1deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+}
+.milestone-stamp {
+  animation: stamp 400ms ease-out forwards;
+}
+.milestone-stamp-reached {
+  transform: rotate(-2deg);
+}
+
+/* ── reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .milestone-stamp {
+    animation: none;
+    transform: rotate(-2deg);
+    opacity: 1;
+  }
+  .htmx-request,
+  .htmx-settling {
+    transition: none;
+  }
+}
+
+/* ── ledger tick bar ────────────────────────────────── */
+.ledger-track {
+  position: relative;
+}
+.ledger-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(242, 240, 234, 0.12);
+}
